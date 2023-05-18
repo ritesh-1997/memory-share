@@ -41,21 +41,21 @@ const AppLayout = () => {
     </>
   );
 };
-const routers = createBrowserRouter([
-  {
-    element: <AppLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/auth",
-        element: <Auth />,
-      },
-    ],
-  },
-]);
+// const routers = createBrowserRouter([
+//   {
+//     element: <AppLayout />,
+//     children: [
+//       {
+//         path: "/",
+//         element: <Home />,
+//       },
+//       {
+//         path: "/auth",
+//         element: <Auth />,
+//       },
+//     ],
+//   },
+// ]);
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -68,28 +68,6 @@ const router = createBrowserRouter(
   )
 );
 
-// const router = createBrowserRouter(createRoutesFromElements(
-//     <Route  element={<Navbar />} >
-//         <Route path = "/" element={< Home />} />
-//         <Route path="/auth"  element={< Auth />} />
-//     </Route>
-//     // pass all the Routes as it was defined before
-// ));
-
 const App = () => <RouterProvider router={router} />;
 
-//export default App;
-
-// const App = () => (
-//     <BrowserRouter>
-//       <Container maxWidth="lg">
-//         <Navbar />
-//         <Routes>
-//           <Route index  element={< Home />} />
-//           <Route path="/auth"  element={< Auth />} />
-//           <Route key="Contact" path="/contact"  element={< Contact />} />
-//         </Routes>
-//       </Container>
-//     </BrowserRouter>
-//   );
 export default App;

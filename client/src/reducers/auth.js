@@ -1,23 +1,23 @@
+/**
+ * Store both the SignIn/SignUp form data and token.
+ */
+
 import { AUTH, LOGOUT } from "../constants/actionTypes";
 import jwt_decode from "jwt-decode";
 
 const authReducer = (state = { authData: null }, action) => {
-  console.log("In auth reducer");
-  const credential = action.data?.res.credential;
-  let decoded = null,
-    name = null;
+  const localAuthCredential = action?.data;
 
-  if (credential) {
-    decoded = jwt_decode(credential);
-    name = decoded.name;
-  }
-
-  console.log(name);
   switch (action.type) {
     case AUTH:
-      localStorage.setItem("profile", JSON.stringify({ ...decoded }));
-      return { ...state, authData: decoded };
-
+      localStorage.setItem(
+        "profile",
+        JSON.stringify({ ...localAuthCredential })
+      );
+      return { ...state, authData: localAuthCredential };
+    case LOGOUT:
+      localStorage.clear();
+      return { ...state, authData: null };
     default:
       return state;
   }

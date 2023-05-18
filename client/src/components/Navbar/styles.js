@@ -20,8 +20,8 @@ export default makeStyles((theme) => ({
   },
   toolbar: {
     display: "flex",
-    justifyContent: "flex-end",
-    width: "400px",
+    justifyContent: "flex",
+    width: "100px",
   },
   profile: {
     display: "flex",
@@ -31,6 +31,7 @@ export default makeStyles((theme) => ({
   userName: {
     display: "flex",
     alignItems: "center",
+    width: "40px",
   },
   brandContainer: {
     display: "flex",
@@ -39,5 +40,9 @@ export default makeStyles((theme) => ({
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
+  },
+  logout: {
+    display: "flex",
+    justifyContent: "flex",
   },
 }));

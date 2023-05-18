@@ -9,7 +9,7 @@ import Form from "../Form/Form";
 const Home = () => {
   // if it doesn't have id at start
   const [currentId, setCurrentId] = useState(null);
-  console.log("In Here");
+  console.log("In Home");
   const dispatch = useDispatch();
 
   useEffect(() => {
