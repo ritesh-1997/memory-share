@@ -8,7 +8,9 @@
 // Implementing redux
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://localhost:5001" });
+const API = axios.create({
+  baseURL: "https://memory-share-xip0.zeet-team-ritesh-1997.zeet.app",
+});
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
