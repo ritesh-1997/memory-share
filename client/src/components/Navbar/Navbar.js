@@ -34,7 +34,7 @@ const Navbar = () => {
   }, [location]);
 
   return (
-    <AppBar className={classes.appBar} position="static" color="inherit">
+    <AppBar className={classes.appBar} position="flex" color="inherit">
       <div className={classes.brandContainer}>
         <Typography
           component={NavLink}
@@ -50,7 +50,7 @@ const Navbar = () => {
         {user ? (
           <div className={classes.profile}>
             <Avatar
-              className={classes.profile}
+              className={classes.purple}
               alt={user?.name}
               src={user?.result?.picture}
             >
