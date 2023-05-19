@@ -84,9 +84,8 @@ export const googlesignin = async (req, res) => {
   try {
     const tokens = await axios.post("https://oauth2.googleapis.com/token", {
       code: req.body.code,
-      client_id:
-        "671086080216-lpjet8hhuf3i3eskg8t5pees4fhq3esa.apps.googleusercontent.com",
-      client_secret: "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",
+      client_id: process.env.GOOGLE_CLIENT_ID,
+      client_secret: process.env.GOOGLE_CLIENT_SECRET,
       redirect_uri: "postmessage",
       grant_type: "authorization_code",
     });

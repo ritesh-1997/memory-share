@@ -3,26 +3,19 @@
  *
  */
 import React from "react";
-import { Container } from "@material-ui/core";
 import {
-  BrowserRouter,
-  Routes,
   RouterProvider,
   Route,
   Outlet,
   createBrowserRouter,
   createRoutesFromElements,
+  Navigate,
 } from "react-router-dom";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
 import Auth from "./components/Auth/Auth";
 import Contact from "./components/Contacts/Contact";
-//import Login from "./components/Google/Login";
-// import Logout from "./components/Google/Logout";
-
-import { useEffect } from "react";
-import { gapi } from "gapi-script";
+import PostDetails from "./components/PostDetails/PostDetails";
 
 const clientId =
   "671086080216-lpjet8hhuf3i3eskg8t5pees4fhq3esa.apps.googleusercontent.com";
@@ -56,13 +49,19 @@ const AppLayout = () => {
 //     ],
 //   },
 // ]);
-
+const user = JSON.parse(localStorage.getItem("profile"));
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route element={<AppLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<Auth />} />
+        <Route path="/" element={<Navigate to="/posts" replace={true} />} />
+        <Route path="/posts" element={<Home />} />
+        <Route path="/posts/search" element={<Home />} />
+        <Route path="/posts/:id" element={<PostDetails />} />
+        <Route
+          path="/auth"
+          element={!user ? <Auth /> : <Navigate to="/posts" replace={true} />}
+        />
       </Route>
     </>
   )
