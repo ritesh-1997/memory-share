@@ -4,25 +4,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import { getPost } from '../../actions/posts';
+import { getPost,getPostsBySearch } from '../../actions/posts';
 import useStyles from './styles';
 
 const Post = () => {
   console.log("Hi In PostDetails");
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
-  const history = useNavigate();
+  const navigate = useNavigate();
   const classes = useStyles();
   const { id } = useParams();
   useEffect(() => {
     dispatch(getPost(id));
   }, [id]);
 
-  // useEffect(() => {
-  //   if (post) {
-  //     dispatch(getPostsBySearch({ search: 'none', tags: post?.tags.join(',') }));
-  //   }
-  // }, [post]);
+  // When post changes the do search accordingly
+  useEffect(() => {
+    if (post) {
+      dispatch(getPostsBySearch({ search: 'none', tags: post?.tags.join(',') }));
+    }
+  }, [post]);
 
   if (!post) return null;
 
@@ -33,8 +34,8 @@ const Post = () => {
       </Paper>
     );
   }
-
-  // const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
+  const openPost = (_id) => navigate(`/posts/${_id}`);
+  const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
 
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
@@ -55,7 +56,7 @@ const Post = () => {
           <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
         </div>
       </div>
-      {/* {!!recommendedPosts.length && (
+      {!!recommendedPosts.length && (
         <div className={classes.section}>
           <Typography gutterBottom variant="h5">You might also like:</Typography>
           <Divider />
@@ -71,7 +72,7 @@ const Post = () => {
             ))}
           </div>
         </div>
-      )} */}
+      )}
     </Paper>
   );
 };

@@ -9,9 +9,11 @@ import FileBase from "react-filebase64";
 import useStyles from "./styles";
 import { createPost, updatePost } from "../../actions/posts";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Form = ({ currentId, setCurrentId }) => {
   console.log("In form js");
+  const navigate = useNavigate();
   const [postData, setPostData] = useState({
     title: "",
     message: "",
@@ -19,7 +21,7 @@ const Form = ({ currentId, setCurrentId }) => {
     selectedFile: "",
   });
   const post = useSelector((state) =>
-    currentId ? state.posts.find((p) => p._id === currentId) : null
+    currentId ? state.posts.posts.find((p) => p._id === currentId) : null
   );
 
   const classes = useStyles();
@@ -39,7 +41,7 @@ const Form = ({ currentId, setCurrentId }) => {
         updatePost(currentId, { ...postData, name: user?.result?.name })
       );
     } else {
-      dispatch(createPost({ ...postData, name: user?.result?.name }));
+      dispatch(createPost({ ...postData, name: user?.result?.name }, navigate));
     }
     clear();
   };
