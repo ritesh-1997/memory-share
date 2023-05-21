@@ -24,6 +24,9 @@ const Navbar = () => {
     setUser(null);
   };
 
+  const handleSignIn = () => {
+    navigate("/auth");
+  };
   useEffect(() => {
     const token = user?.token;
 
@@ -62,7 +65,7 @@ const Navbar = () => {
             </Button>
           </div>
         ) : (
-          <Button component={NavLink} to="/auth" color="primary">
+          <Button onClick={handleSignIn} color="primary">
             Sign In
           </Button>
         )}
