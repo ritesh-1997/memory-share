@@ -9,6 +9,7 @@
 import {
   FETCH_ALL,
   FETCH_POST,
+  COMMENT,
   CREATE,
   DELETE,
   LIKE,
@@ -87,6 +88,18 @@ export const likePost = (id) => async (dispatch) => {
     console.log(id);
     const { data } = await api.likePost(id);
     dispatch({ type: LIKE, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const commentPost = (comment, postId) => async (dispatch) => {
+  try {
+    const { data } = await api.comment(comment, postId);
+    console.log(data);
+    console.log("In commentPost");
+    dispatch({ type: COMMENT, payload: data });
+    return data.comments;
   } catch (error) {
     console.log(error);
   }

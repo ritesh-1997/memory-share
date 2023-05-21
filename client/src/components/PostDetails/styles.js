@@ -23,6 +23,7 @@ export default makeStyles((theme) => ({
   imageSection: {
     marginLeft: "20px",
     display: "flex",
+    width: "50%",
     [theme.breakpoints.down("sm")]: {
       marginLeft: 0,
     },
@@ -40,5 +41,15 @@ export default makeStyles((theme) => ({
     padding: "20px",
     borderRadius: "15px",
     height: "39vh",
+  },
+  CommentsOuterSection: {
+    display: "flex",
+    justifyContent: "space-between",
+    height: "200px",
+  },
+  CommentsInnerSection: {
+    height: "200px",
+    overflowY: "overflow",
+    marginRight: "30px",
   },
 }));
