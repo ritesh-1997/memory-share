@@ -28,7 +28,7 @@ const initialState = {
   confirmPassword: "",
 };
 const Auth = () => {
-  console.log("In Auth");
+  console.log("In Auth for signin");
   const classes = useStyles();
   const [isSignUp, setIsSignUp] = useState(false);
   const [formData, setFormData] = useState(initialState);

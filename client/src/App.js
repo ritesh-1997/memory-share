@@ -16,6 +16,11 @@ import Home from "./components/Home/Home";
 import Auth from "./components/Auth/Auth";
 import Contact from "./components/Contacts/Contact";
 import PostDetails from "./components/PostDetails/PostDetails";
+import Profile from "./components/Profile/Profile";
+import CheckoutCart from "./components/Checkout/Cart/CheckoutCart";
+import CheckoutAddress from "./components/Checkout/Address/CheckoutAddress";
+import CheckoutPayment from "./components/Checkout/Payment/CheckoutPayment";
+import PaymentSuccessful from "./components/Checkout/Payment/PaymentSuccessful";
 
 const clientId =
   "671086080216-lpjet8hhuf3i3eskg8t5pees4fhq3esa.apps.googleusercontent.com";
@@ -50,14 +55,24 @@ const AppLayout = () => {
 //   },
 // ]);
 const user = JSON.parse(localStorage.getItem("profile"));
+console.log(user);
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route element={<AppLayout />}>
         <Route path="/" element={<Navigate to="/posts" replace={true} />} />
         <Route path="/posts" element={<Home />} />
+        <Route path="/user/profile/" element={<Profile />} />
         <Route path="/posts/search" element={<Home />} />
         <Route path="/posts/:id" element={<PostDetails />} />
+        <Route
+          path="/checkout"
+          element={<Navigate to="/checkout/cart" replace={true} />}
+        />
+        <Route path="/checkout/cart" element={<CheckoutCart />} />
+        <Route path="/checkout/address" element={<CheckoutAddress />} />
+        <Route path="/checkout/payment" element={<CheckoutPayment />} />
+        <Route path="/completion" element={<PaymentSuccessful />} />
         <Route
           path="/auth"
           element={!user ? <Auth /> : <Navigate to="/posts" />}

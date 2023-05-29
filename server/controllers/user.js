@@ -3,8 +3,11 @@ import jwt from "jsonwebtoken";
 import User from "../models/user.js";
 import axios from "axios";
 
+import mongoose from "mongoose";
+import express from "express";
+import PostMessage from "../models/postMessage.js";
+
 export const signin = async (req, res) => {
-  console.log("===== signin ======");
   const { email, password } = req.body;
   try {
     const existingUser = await User.findOne({ email });
@@ -31,8 +34,6 @@ export const signin = async (req, res) => {
 };
 
 export const signup = async (req, res) => {
-  console.log("In signUp :");
-  //console.log(req);
   const { email, password, confirmPassword, firstName, lastName } = req.body;
 
   try {
@@ -103,5 +104,21 @@ export const googlesignin = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Something went wrong !!" });
+  }
+};
+
+export const getUserProfile = async (req, res) => {
+  const { id } = req.query;
+  try {
+    const LIMIT = 4;
+
+    const posts = await PostMessage.find({
+      creator: id,
+    })
+      .sort({ _id: -1 })
+      .limit(LIMIT);
+    res.status(200).json({ data: posts });
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
   }
 };

@@ -14,9 +14,12 @@ import {
   START_LOADING,
   END_LOADING,
   COMMENT,
+  PROFILE,
+  CONFIG,
 } from "../constants/actionTypes";
 
 export default (state = { isLoading: true, posts: [] }, action) => {
+  console.log(action.payload?.key);
   switch (action.type) {
     case START_LOADING:
       return { ...state, isLoading: true };
@@ -60,6 +63,13 @@ export default (state = { isLoading: true, posts: [] }, action) => {
         ...state,
         posts: state.posts.filter((post) => post._id !== action.payload),
       };
+    case PROFILE:
+      return {
+        ...state,
+        posts: action.payload.post,
+      };
+    case CONFIG:
+      return { ...state, key: action.payload.key };
     default:
       return state;
   }

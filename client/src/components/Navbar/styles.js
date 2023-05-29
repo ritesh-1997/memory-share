@@ -1,7 +1,8 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { deepPurple } from "@material-ui/core/colors";
+import Badge from "@material-ui/core/Badge";
 
-export default makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
   appBar: {
     borderRadius: 15,
     margin: "30px 0",
@@ -60,3 +61,12 @@ export default makeStyles((theme) => ({
     backgroundColor: deepPurple[500],
   },
 }));
+
+export const StyledBadge = withStyles((theme) => ({
+  badge: {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: "0 4px",
+  },
+}))(Badge);
