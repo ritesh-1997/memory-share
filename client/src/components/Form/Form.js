@@ -48,7 +48,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
   // If User is not there.
   if (!user?.result?.name) {
-    console.log("SignOut");
+    console.log("User not there i.e. not logged in");
     return (
       <Paper className={classes.paper}>
         <Typography variant="h6" align="center">

@@ -52,4 +52,11 @@ export default makeStyles((theme) => ({
     overflowY: "overflow",
     marginRight: "30px",
   },
+  addtocart: {
+    display: "flex",
+    alignitems: "center",
+    border: "1px solid #ccc",
+    padding: "10px",
+    marginbottom: "10px",
+  },
 }));

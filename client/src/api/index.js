@@ -48,3 +48,8 @@ export const signUp = (formData) => API.post("/user/signup", formData);
 
 export const googleSignIn = (authCode) =>
   API.post("/user/auth/google", authCode);
+
+export const fetchUserProfile = (userID) =>
+  API.get(`/user/profile?id=${userID}`);
+
+export const getConfig = (userID) => API.get(`/payments/stripe/config`);
