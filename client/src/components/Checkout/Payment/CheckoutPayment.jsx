@@ -28,6 +28,7 @@ const CheckoutPayment = () => {
     useEffect(() => {
         fetch("/payments/stripe/config").then(async (r) => {
           const { publishableKey } = await r.json();
+          console.log("key:", publishableKey);
           setStripePromise(loadStripe(publishableKey));
         });
       }, []);

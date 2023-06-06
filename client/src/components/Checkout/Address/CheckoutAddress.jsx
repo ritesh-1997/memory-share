@@ -1,5 +1,10 @@
-import React,{useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import React,{useState,useEffect} from 'react';
+import { useNavigate,useLocation } from 'react-router-dom';
+import {Paper,Card,
+  CardActions,
+  CardContent,Checkbox,
+  CardMedia} from '@material-ui/core';
+
 import '../styles.css';
 import useStyles from "../Cart/shippingFormStyles";
 import '../Cart/shippingFormStyles.js';
@@ -8,14 +13,19 @@ import {
   Typography,
   
 } from "@mui/material";
+import AddressFormPopup from './AddressFormPopup';
 
 
 import { Box,TextField, Grid } from '@material-ui/core';
 
 const CheckoutAddress = () => {
-  const classes = useStyles();
-  const navigate = useNavigate();
-  const [errors, setErrors] = useState({});
+
+  const [showForm, setShowForm]               = useState(false);
+  const [activeCard, setActiveCard]           = useState(null);
+  const [user, setUser]                       = useState(JSON.parse(localStorage.getItem("profile")));
+  const [addresses, setAddresses]             = useState([]);
+  const location                              = useLocation();
+  const navigate                              = useNavigate();
   const [shippingAddress, setshippingAddress] = useState({
     firstname: "",
     lastname: "",
@@ -25,16 +35,43 @@ const CheckoutAddress = () => {
     country:'',
     postalCode: '',
   });
-  const [shippingAddressFormError, setshippingAddressFormError] = useState({
-    firstname: "",
-    lastname: "",
-    address: '',
-    city: '',
-    state: '',
-    country:'',
-    postalCode: '',
-  });
+  const userId  = user?.result?.sub || user?.result?._id;
 
+  useEffect(() => {
+    // Fetch addresses from the database and update the state
+    const fetchAddresses = async () => {
+      try {
+        const response = await fetch(`/user/${userId}/addresses`); // Replace with your API endpoint
+        const data = await response.json();
+        setAddresses(data);
+      } catch (error) {
+        console.error('Error fetching addresses:', error);
+      }
+    };
+
+    fetchAddresses();
+  }, []);
+  const handleOpenForm = () => {
+    setShowForm(true);
+  };
+
+  const handleCloseForm = () => {
+    setShowForm(false);
+  };
+
+  const handleSaveAddress = (addressObj) => {
+    // Handle saving the address data
+    console.log("In CheckoutAddress");
+    shippingAddress.city = addressObj.city;
+    shippingAddress.address = addressObj.address;
+    shippingAddress.postalCode = addressObj.postalCode;
+    shippingAddress.country = addressObj.country;
+    shippingAddress.phone = addressObj.mobile;
+    shippingAddress.state = addressObj.state;
+
+    console.log(addressObj);
+    setShowForm(false);
+  };
 
   const handleCheckoutAddressClick =() => {
     // bind the data and send it to the location
@@ -59,165 +96,86 @@ const CheckoutAddress = () => {
   const handleCheckoutAddressBackClick = () => {
     navigate('/checkout/cart');
   }
-  const handleChange = (event) => {
-    setshippingAddress({
-      ...shippingAddress,
-      [event.target.name]: event.target.value,
-    });
+
+  const handleCardClick = (cardId) => {
+    setActiveCard(cardId);
   };
-
-  // Form validation code
-  const validateForm = (shippingAddress) => {
-    const errors = {};
-
-    // Validate name
-    if (!shippingAddress.firstname.trim()) {
-      errors.firstname = 'First Name is required';
-    }
-
-    // Validate Address
-    if (!shippingAddress.address.trim()) {
-      errors.address = 'Address is required';
-    }
-
-    // Validate City 
-    if (!shippingAddress.city.trim()) {
-      errors.city = 'City is required';
-    } 
-    // Validate state 
-    if (!shippingAddress.state.trim()) {
-      errors.state = 'state is required';
-    } 
-    // Validate country
-    if (!shippingAddress.country.trim()) {
-      errors.country = 'country is required';
-    } 
-    // Validate postalCode 
-    if (!shippingAddress.postalCode.trim()) {
-      errors.postalCode = 'Postal Code is required';
-    } 
-
-    return errors;
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    
-    // TODO: Validate the form and submit it
-    const validationErrors = validateForm(shippingAddress);
-    setErrors(validationErrors);  
-
-    if (Object.keys(validationErrors).length === 0) {
-      // Form is valid, submit or perform further actions
-      console.log('Form submitted:', shippingAddress);
-    }
-    
-
-  };
+  
   return (
-    <div>
-      <Typography variant="h6" gutterBottom>
-        Shipping address
-      </Typography>
-      <Box elevation={6} className={classes.form} borderBottom="1px solid #ccc" padding="8px 20px">
-        <form onSubmit={handleSubmit} className={classes.formContainer}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                name="firstname"
-                label="First Name"
-                fullWidth
-                value={shippingAddress.name}
-                onChange={handleChange}
-                className={classes.textField}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                name="lastname"
-                label="Last Name"
-                fullWidth
-                value={shippingAddress.lastname}
-                onChange={handleChange}
-                className={classes.textField}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                name="address"
-                label="Address"
-                fullWidth
-                value={shippingAddress.address}
-                onChange={handleChange}
-                className={classes.textField}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                name="city"
-                label="City"
-                fullWidth
-                value={shippingAddress.city}
-                onChange={handleChange}
-                className={`${classes.textField} ${shippingAddressFormError.city ? 'error' : ''}`}
-                />
-               {shippingAddressFormError.city && <span className="error-message">{shippingAddressFormError.city}</span>}
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                name="state"
-                label="State"
-                fullWidth
-                value={shippingAddress.state}
-                onChange={handleChange}
-                className={classes.textField}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              
-              <TextField
-                name="country"
-                label="Country"
-                fullWidth
-                value={shippingAddress.country}
-                onChange={handleChange}
-                className={`${classes.textField} ${shippingAddressFormError.country ? 'error' : ''}`}
-                />
-               {shippingAddressFormError.country && <span className="error-message">{shippingAddressFormError.country}</span>}
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                name="postalCode"
-                label="Postal Code"
-                fullWidth
-                value={shippingAddress.postalCode}
-                onChange={handleChange}
-                className={classes.textField}
-              />
-            </Grid>
-          </Grid>
-          <br/>
-          <Button type="submit" variant="contained" color="primary" className={classes.submitButton}>
-            Submit
-          </Button>
-        </form>
-      </Box>
-        In payment address. 
-      <Button
-        class="cta"
-        onClick={handleCheckoutAddressClick}
+    <Grid container className="grid-container">
+      <Grid item xs={8} className="item-1">
+        <Typography variant="h6" gutterBottom>
+          Shipping address
+        </Typography>
+
+        <Typography variant="h6" gutterBottom>
+          <Button onClick={handleOpenForm}> Add Address</Button>
+          {showForm && (
+              <AddressFormPopup onSave={handleSaveAddress} onCancel={handleCloseForm} />
+          )}
+        </Typography>
         
-      >
-        <span> Continue </span>
-        <svg viewBox="0 0 13 10" height="10px" width="15px">
-          <path d="M1,5 L11,5"></path>
-          <polyline points="8 1 12 5 8 9"></polyline>
-        </svg>
-      </Button>
-      <Button onClick={handleCheckoutAddressBackClick}>
-        Go Back
-      </Button>
-    </div>
+        <Typography variant="h6" gutterBottom>
+           Address List        
+        </Typography>
+        <Grid container spacing={2}>
+          {addresses.map((address) => (
+            <Grid item xs={4} key={address.id}>
+          <Card className={`card ${address.id === activeCard ? 'active' : ''}`}
+                raised
+                elevation={6}
+                onClick={() => handleCardClick(address.id)}>
+           <CardContent>
+           <div key={address._id} className="address-card">
+           {/* <Box display="flex" alignItems="center"> */}
+                    <Checkbox
+                      checked={activeCard === address._id}
+                      onChange={() => handleCardClick(address._id)}
+                      color="primary"
+                      inputProps={{ 'aria-label': 'Select Card' }}
+                    />          
+            {/* </Box> */}
+               <h3>{address.firstName} {address.lastName}</h3>
+               
+               <Typography variant="body2">Phone: {address.phone}</Typography>
+               <Typography variant="body2">Type: {address.type}</Typography>
+               <Typography variant="body2">Address: {address.address1}</Typography>
+               {address.address2 && <Typography variant="body2">{address.address2}</Typography>}
+               <Typography variant="body2">{address.city}, {address.state}, {address.country}</Typography>
+               <Typography variant="body2">Postal Code: {address.postalCode}</Typography>
+            </div>
+           </CardContent>   
+         </Card>
+         </Grid>
+       ))}
+        </Grid>
+       
+       
+
+
+      </Grid>
+      <Grid item xs={4} className="item-2">
+        <Typography variant="h6" gutterBottom>
+          Shipping address
+        </Typography>
+
+        <Paper raised elevation={6} >
+          <Button onClick={handleCheckoutAddressBackClick}>
+            Go Back
+          </Button>
+          <Button
+           className="cta"
+           onClick={handleCheckoutAddressClick}
+          >
+            <span> Continue </span>
+            <svg viewBox="0 0 13 10" height="10px" width="15px">
+              <path d="M1,5 L11,5"></path>
+              <polyline points="8 1 12 5 8 9"></polyline>
+            </svg>
+          </Button>
+        </Paper>   
+      </Grid>
+    </Grid>
   )
 }
 

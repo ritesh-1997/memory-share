@@ -8,7 +8,7 @@ import CommentSection from './CommentSection';
 import { getPost,getPostsBySearch } from '../../actions/posts';
 import useStyles from './styles';
 
-import PropTypes, { number,string } from 'prop-types';
+import {addItemToCart} from '../../actions/cart';
 
 
 
@@ -21,17 +21,19 @@ const Post = () => {
   const classes = useStyles();
   const { id } = useParams(); 
   const[isItemAdded, setIsItemAdded] = useState(false);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const userId = user?.result?.sub || user?.result?._id;
 
   // Managing adding items to the cart list.
-
-  const handleAddToCartClick = (userId,productId) => {
+  const handleAddToCartClick = () => {
     setIsItemAdded(true);
     const cartItem = {
       userId: userId,
-      productId: productId,
-    }
-    
-
+      productId: id,
+     
+    };
+    console.log("PostId : ",id," ; User Id : ", userId)
+    dispatch(addItemToCart(cartItem));
   };
   useEffect(() => {
     dispatch(getPost(id));

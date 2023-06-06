@@ -1,0 +1,45 @@
+.button-container {
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card {
+    align-self: "stretch";
+    display: inline-block;
+    flex-direction: 'column';
+    justify-content: 'space-between';
+    border-radius: '15px';
+    align-items: "flex-start";
+    padding: 10;
+    height: '100%';
+    width: '400px';
+    position: 'relative';
+  }
+  .card.active {
+    background-color: #e0e0e0;
+    /* Add any other styles for the active card */
+  }
+  .left-button{
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+  }
+  .middle-button{
+    display: flex;
+    justify-content: space-between;
+    align-items: middle;
+  }
+  .grid-container {
+    display: flex;
+  }
+  
+  .item-1 {
+    flex: 0 0 60%;
+    background-color: #f0f0f0;
+    /* Styles for Item 1 */
+  }
+  
+  .item-2 {
+    flex: 0 0 40%;
+    background-color: #e0e0e0;
+    /* Styles for Item 2 */
+  }
