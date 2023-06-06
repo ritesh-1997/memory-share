@@ -65,7 +65,7 @@ const Navbar = () => {
       .catch((error) => {
         console.log("Error fetching cart:", error);
       });
-  }, []);
+  }, [cartItemCounter]);
 
   // For user profile
   useEffect(() => {

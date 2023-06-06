@@ -57,6 +57,16 @@
    form > * {
     margin: 10px 0;
   }
+  .cart-container {
+    margin: 20px;
+    width: 80%;
+  }
+  
+  .cart-total {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
   
    button {
     background-color: var(--accent-color);
@@ -115,4 +125,37 @@
     margin: 20px 0;
     border-radius: var(--radius);
     font-size: 0.7em;
+  }
+  .Paper {
+    display: flex;
+    padding: 10px;
+    margin: 45px;
+  }
+
+
+  .paper-container {
+    width: 400px;
+    padding: 16px;
+    margin: 0 auto;
+  }
+  
+  .cart-items {
+    margin-bottom: 16px;
+  }
+  
+  .cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .buttons button {
+    margin-left: 16px;
+    margin-top: 16px;
   }

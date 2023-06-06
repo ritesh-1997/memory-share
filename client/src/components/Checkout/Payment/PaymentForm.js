@@ -59,7 +59,7 @@ export default function CheckoutForm() {
         <Divider />
         <br />
         <button
-          class="cta"
+          className="cta"
           disabled={isProcessing || !stripe || !elements}
           id="submit"
         >

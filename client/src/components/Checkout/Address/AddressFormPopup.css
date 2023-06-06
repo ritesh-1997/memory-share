@@ -1,0 +1,184 @@
+.popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    color: grey;
+    overflow: auto;
+  }
+  
+  .popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+  
+  .popup-content h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1rem;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+  }
+  
+  /* .form-group input[type="text"],
+  .form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9rem;
+  } */
+
+.form-group input[type="text"],
+.form-group select {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+.form-group input[type="text"]:focus,
+.form-group select:focus {
+  outline: none;
+  border-bottom: 1px solid #000;
+}
+
+.form-group input[type="text"]:not(:placeholder-shown) + label,
+.form-group select:not(:placeholder-shown) + label {
+  font-size: 0.8rem;
+  transform: translateY(-24px);
+  color: #999;
+  transition: all 0.3s ease-in-out;
+}
+
+.form-group input[type="text"].error,
+.form-group select.error {
+  border: 1px solid red;
+}
+  
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  
+  .button-container button {
+    padding: 8px 16px;
+    margin-left: 10px;
+    font-size: 0.9rem;
+    color: blue;
+  }
+  .my-paper {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  .my-paper-footer {
+    background-color: #4b4040;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .my-paper h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+  }
+  
+  .my-paper .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .my-paper .form-group label {
+    display: block;
+    color: grey;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+  }
+  
+  .my-paper .form-group input[type="text"],
+  .my-paper .form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+  
+  .my-paper .button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  
+  .my-paper .button-container button {
+    padding: 8px 16px;
+    margin-left: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .single-line-input {
+    border: none;
+    background: none;
+    border-bottom: 1px solid #ccc;
+    height: 24px;
+    padding: 4px 0;
+    font-size: 0.9rem;
+  }
+  
+  .single-line-input:focus {
+    outline: none;
+    border-bottom: 1px solid #000;
+  }
+  .footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+  
+}
+.popup-footer {
+  position: flex-end;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+.footer-button {
+  margin-left: 10px;
+  padding: 8px 16px;
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.footer-button:hover {
+  background-color: #e0e0e0;
+}
