@@ -9,7 +9,7 @@
 import axios from "axios";
 
 const localserverURL = "http://localhost:5001";
-const serverURL = "https://memory-share-xip0.zeet-team-ritesh-1997.zeet.app";
+const serverURL = "https://memory-share-7yyh.onrender.com";
 const API = axios.create({ baseURL: serverURL });
 
 API.interceptors.request.use((req) => {
